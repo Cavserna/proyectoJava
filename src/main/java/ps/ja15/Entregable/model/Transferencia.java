@@ -8,12 +8,12 @@ import java.time.LocalDateTime;
 @Data
 public class Transferencia {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
     @JoinColumn (name = "cuenta_origen_id")
-    private Cuenta cuentaOriginId;
+    private Cuenta cuentaOrigenId;
 
     @ManyToOne
     @JoinColumn (name= "cuenta_destino_id")

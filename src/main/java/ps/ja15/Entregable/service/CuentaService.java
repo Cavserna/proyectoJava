@@ -1,5 +1,6 @@
 package ps.ja15.Entregable.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ps.ja15.Entregable.model.Cuenta;
@@ -25,24 +26,11 @@ public class CuentaService  implements  ICuentaService{
             return cuentaRepository.save(cuenta);
     }
     public Cuenta update(Cuenta cuenta)throws Exception{
-        Optional<Cuenta> cuentaExistente = cuentaRepository.findByNumeroCuenta(cuenta.getNumeroCuenta());
-        if (cuentaExistente.isPresent()) {
-            Cuenta actualizarCuenta = cuentaExistente.get();
-            actualizarCuenta.setSaldo(cuenta.getSaldo());
             return cuentaRepository.save(cuenta);
-        }else{
-            return save(cuenta);
-        }
     }
-    public void delete(String  numeroDeCuenta)throws Exception{
-        Optional<Cuenta> cuentaExistente = cuentaRepository.findByNumeroCuenta(numeroDeCuenta);
-        if (cuentaExistente.isEmpty()) {
-            throw new Exception("No existe la cuenta.");
-        }
-        if (cuentaExistente.get().getSaldo().compareTo(BigDecimal.ZERO) < 0) {
-            throw new Exception("Aun No ha normalizado sus Obligaciones. saldo:"+cuentaExistente.get().getSaldo());
-        }
-        cuentaRepository.deleteByNumeroCuenta(numeroDeCuenta);
+
+    public void deleteById(Long id){
+        cuentaRepository.deleteById(id);
     }
     public Cuenta findById(Long id) throws Exception{
         return cuentaRepository.findById(id).get();

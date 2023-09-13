@@ -47,10 +47,8 @@ public class CuentaController {
         }
     }
     @DeleteMapping("/{id}")
-    public void eliminarCuenta(@PathVariable String numeroDeCuenta) {
-        try {
-            cuentaService.delete(numeroDeCuenta);
-        }catch (Exception e){
-        }
+    public void eliminarCuenta(@PathVariable Long id) {
+            cuentaService.deleteById(id);
+
     }
 }
